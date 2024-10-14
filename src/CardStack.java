@@ -50,8 +50,13 @@ public class CardStack {
                     break;
                 }
                 case(2):{
-                    System.out.println("Card added Successfully...");
-                    pop();
+                    int s=0;
+                    while(data<peek() && peek()!=-1){
+                        System.out.println(getCardName(pop())+" has been removed...");
+                        s++;
+                    }
+                    System.out.println(getCardName(data)+"has been added Successfully...");
+                    System.out.println("Whoops!! Your score deducted by "+s+" ...");
                     n.next=top;
                     top=n;
                     length++;
@@ -71,7 +76,7 @@ public class CardStack {
         int value=top.data;
         top=top.next;
         length--;
-        score--;
+        score = Math.max(0, score - 1);
         return value;
     }
     public void display(){
@@ -101,5 +106,15 @@ public class CardStack {
             default:
                 return String.valueOf(data);
         }
+    }
+    public boolean isPresent(int key){
+        Node current=top;
+        while(current!=null){
+            if(current.data==key){
+                return true;
+            }
+            current=current.next;
+        }
+        return false;
     }
 }
